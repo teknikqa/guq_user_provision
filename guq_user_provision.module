@@ -8,7 +8,7 @@
 /**
  * Implements hook_user_insert().
  */
-function varuni_user_profile_user_insert(&$edit, $account, $category) {
+function guq_user_provision_user_insert(&$edit, $account, $category) {
   if (preg_match('/^([a-zA-Z0-9]*)@georgetown.edu$/', $account->mail, $matches)) {
     if (!user_get_authmaps($matches[1])) {
       $authmaps = array(
@@ -22,7 +22,7 @@ function varuni_user_profile_user_insert(&$edit, $account, $category) {
 /**
  * Implements hook_user_delete().
  */
-function varuni_user_profile_user_delete($account) {
+function guq_user_provision_user_delete($account) {
   if (preg_match('/^([a-zA-Z0-9]*)@georgetown.edu$/', $account->mail, $matches)) {
     db_delete('authmap')
       ->condition('uid', $account->uid)
