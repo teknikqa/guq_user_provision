@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Code for the VarUni user profile feature.
+ */
+
+/**
+ * Implements hook_user_insert().
+ */
+function varuni_user_profile_user_insert(&$edit, $account, $category) {
+  if (preg_match('/^([a-zA-Z0-9]*)@georgetown.edu$/', $account->mail, $matches)) {
+    if (!user_get_authmaps($matches[1])) {
+      $authmaps = array(
+        'authname_simplesamlphp_auth' => $matches[1],
+      );
+      user_set_authmaps($account, $authmaps);
+    }
+  }
+}
+
+/**
+ * Implements hook_user_delete().
+ */
+function varuni_user_profile_user_delete($account) {
+  if (preg_match('/^([a-zA-Z0-9]*)@georgetown.edu$/', $account->mail, $matches)) {
+    db_delete('authmap')
+      ->condition('uid', $account->uid)
+      ->condition('authname', $matches[1])
+      ->execute();
+  }
+}
