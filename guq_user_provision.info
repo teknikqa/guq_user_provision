@@ -1,6 +1,6 @@
 name = GU-Q User Provision
 description = A feature to manage user profiles for Researchers with an account to login.
 core = 7.x
-package = GU-Q
+package = GUQatar
 version = 7.x-1.0
 dependencies[] = simplesamlphp_auth
